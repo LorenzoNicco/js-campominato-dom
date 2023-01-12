@@ -20,6 +20,7 @@ const levelSelection = document.getElementById("level-selector");
 const playBtn = document.getElementById("play-button");
 
 let numbersList = [];
+console.log("numbersList", numbersList);
 
 const levelEasy = "cell-easy";
 const levelMedium = "cell-medium";
@@ -28,18 +29,25 @@ const levelHard = "cell-hard";
 // Evento play
 playBtn.addEventListener("click", 
     function () {
+        
         if (levelSelection.value == "easy") { //Inizio livello facile
             gridContainer.innerHTML = " ";
-           
+
+            const bombCreator = bombs(1, 100);
+
             const cell = cellCreator(1, 100, levelEasy);
         }
         else if (levelSelection.value == "medium") { //Inizio livello medio
             gridContainer.innerHTML = " ";
 
+            const bombCreator = bombs(1, 81);
+
             const cell = cellCreator(1, 81, levelMedium);
         }
         else if (levelSelection.value == "hard") { //Inizio livello difficile
             gridContainer.innerHTML = " ";
+
+            const bombCreator = bombs(1, 49);
 
             const cell = cellCreator(1, 49, levelHard);
         }
@@ -63,8 +71,10 @@ function cellCreator (min, max, levelClass) {
 function cellColor (cellVarName, counter) {
     cellVarName.addEventListener("click",
         function () {
-            if (cellVarName.classList.contains("click-azure")) {
-                cellVarName.classList.remove("click-azure");
+            if (numbersList.includes(counter)) {
+                cellVarName.classList.add("bomb");
+
+                console.log("Il numero della cella con la bomba è: " + counter);
             }
             else {
                 cellVarName.classList.add("click-azure");
@@ -77,14 +87,12 @@ function cellColor (cellVarName, counter) {
 
 function bombs (min, max) {
     for (let i = 1; i <= 16; i++) {
-        let bombNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        let bombNumber = Math.floor(Math.random() * max) + min;
     
         while (numbersList.includes(bombNumber)) {
-            bombNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+            bombNumber = Math.floor(Math.random() * max) + min;
         }
     
         numbersList.push(bombNumber);
-    
-        return bombNumber;
     }
 }
