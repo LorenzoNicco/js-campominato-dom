@@ -19,66 +19,72 @@ const levelSelection = document.getElementById("level-selector");
 
 const playBtn = document.getElementById("play-button");
 
+let numbersList = [];
+
+const levelEasy = "cell-easy";
+const levelMedium = "cell-medium";
+const levelHard = "cell-hard";
+
 // Evento play
 playBtn.addEventListener("click", 
     function () {
         if (levelSelection.value == "easy") { //Inizio livello facile
             gridContainer.innerHTML = " ";
-
-            for (let i = 1; i <= 100; i++) {
-                const myCell = document.createElement("div");
-                myCell.classList.add("cell", "cell-easy");
-                myCell.innerHTML = i;
-            
-                cellColor(myCell);
-            
-                gridContainer.append(myCell);
-            }
+           
+            const cell = cellCreator(1, 100, levelEasy);
         }
         else if (levelSelection.value == "medium") { //Inizio livello medio
             gridContainer.innerHTML = " ";
 
-            for (let i = 1; i <= 81; i++) {
-                const myCell = document.createElement("div");
-                myCell.classList.add("cell", "cell-medium");
-                myCell.innerHTML = i;
-            
-                cellColor(myCell);
-            
-                gridContainer.append(myCell);
-            }
+            const cell = cellCreator(1, 81, levelMedium);
         }
         else if (levelSelection.value == "hard") { //Inizio livello difficile
             gridContainer.innerHTML = " ";
 
-            for (let i = 1; i <= 49; i++) {
-                const myCell = document.createElement("div");
-                myCell.classList.add("cell", "cell-hard");
-                myCell.innerHTML = i;
-            
-                cellColor(myCell);
-            
-                gridContainer.append(myCell);
-            }
+            const cell = cellCreator(1, 49, levelHard);
         }
-
     }
 );
 
 // Funzioni -----------------------------------------------------
 
-function cellColor (cellVarName) {
-
-    cellVarName.addEventListener("click",
-    function () {
-        if (cellVarName.classList.contains("click-azure")) {
-            cellVarName.classList.remove("click-azure");
-        }
-        else {
-            cellVarName.classList.add("click-azure");
-
-            console.log("Il numero della cella è: " + i);
-        }
+function cellCreator (min, max, levelClass) {
+    for (let i = min; i <= max; i++) {
+        const myCell = document.createElement("div");
+        myCell.classList.add("cell", levelClass);
+        myCell.innerHTML = i;
+    
+        gridContainer.append(myCell);
+    
+        cellColor(myCell, i);
     }
-);
+}
+
+function cellColor (cellVarName, counter) {
+    cellVarName.addEventListener("click",
+        function () {
+            if (cellVarName.classList.contains("click-azure")) {
+                cellVarName.classList.remove("click-azure");
+            }
+            else {
+                cellVarName.classList.add("click-azure");
+
+                console.log("Il numero della cella è: " + counter);
+            }
+        }
+    );
+}
+
+function bombs (min, max) {
+    for (let i = 1; i <= 16; i++) {
+        let bombNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    
+        while (numbersList.includes(bombNumber)) {
+            bombNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    
+        numbersList.push(bombNumber);
+    
+        return bombNumber;
+    }
 }
