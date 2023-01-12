@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css/style.css">
+        <title>Campo Minato</title>
+    </head>
+    <body>
+        <!-- LIVELLO SFONDO -->
+        <header class="out-part">
+            <h1>Campo minato</h1>
+
+            <div>
+                <label for="level-selector">Difficoltà:</label>
+
+                <select name="level" id="level-selector">
+                    <option value="easy">Facile</option>
+                    <option value="medium">Medio</option>
+                    <option value="hard">Difficile</option>
+                </select>
+
+                <button id="play-button">Play</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- inizio griglia -->
+            <section id="grid-section-easy" class="hide">
+                <div id="grid-container-easy">
+                
+                </div>
+            </section>
+
+            <section id="grid-section-medium" class="hide">
+                <div id="grid-container-medium">
+                
+                </div>
+            </section>
+
+            <section id="grid-section-hard" class="hide">
+                <div id="grid-container-hard">
+                
+                </div>
+            </section>
+            <!-- fine griglia -->
+        </main>
+
+        <footer class="out-part">
+            <p>Made with &hearts; by <a href="#">Boolean</a>.</p>
+        </footer>
+
+        <!-- COLLEGAMENTO FILE JAVASCRIPT -->
+        <script type="text/javascript" src="js/script.js"></script>
+    </body>
+</html>

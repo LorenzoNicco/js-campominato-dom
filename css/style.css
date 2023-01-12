@@ -1,0 +1,95 @@
+/* RESET **********************************/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* LIVELLO SFONDO **********************************/
+.out-part {
+    width: 100%;
+    height: 10vh;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+main {
+    width: 100%;
+    height: 80vh;
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* HEADER **********************************/
+#level-selector {
+    width: 10rem;
+    cursor: pointer;
+    background-color: #e9e9ed;
+    border-radius: 5px;
+    height: 1.5rem;
+    border: 1px solid lightgray;
+}
+
+#play-button {
+    width: 5rem;
+    cursor: pointer;
+    height: 1.5rem;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+}
+
+/* MAIN **********************************/
+#grid-section-easy,
+#grid-section-medium,
+#grid-section-hard {
+    border: 2px solid black;
+    height: 70vh;
+    width: 70vh;
+    background-color: coral;
+}
+
+#grid-container-easy,
+#grid-container-medium,
+#grid-container-hard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+
+.cell {
+    border: 2px solid black;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 50%;
+}
+
+.cell-easy {
+    height: 10%;
+    width: 10%;  
+}
+
+.cell-medium {
+    height: calc(100% / 9);
+    width: calc(100% / 9);  
+}
+
+.cell-hard {
+    height: calc(100% / 7);
+    width: calc(100% / 7);  
+}
+
+.click-azure {
+    background-color: lightseagreen;
+}
+
+.hide {
+    display: none;
+}
