@@ -19,44 +19,70 @@ const levelSelection = document.getElementById("level-selector");
 
 const playBtn = document.getElementById("play-button");
 
-let numbersList = [];
-console.log("numbersList", numbersList);
-
 const levelEasy = "cell-easy";
 const levelMedium = "cell-medium";
 const levelHard = "cell-hard";
 
+let numbersList = [];
+console.log("numbersList", numbersList);
+
+let winningList = [];
+
+let points = 0;
+console.log("points prima", points, typeof points);
+
+let pointCounter = document.getElementById("points");
+
+let gameOver = document.getElementById("game-over");
+
 // Evento play
 playBtn.addEventListener("click", 
     function () {
-        
         if (levelSelection.value == "easy") { //Inizio livello facile
+            gridContainer.classList.remove("no-click");
+
             gridContainer.innerHTML = " ";
+            pointCounter.innerHTML = " ";
+            gameOver.innerHTML = " ";
+            numbersList = [];
+            winningList = [];
 
-            const bombCreator = bombs(1, 100);
+            bombs(1, 100);
 
-            const cell = cellCreator(1, 100, levelEasy);
+            cellCreator(1, 100, levelEasy, 81);
         }
         else if (levelSelection.value == "medium") { //Inizio livello medio
+            gridContainer.classList.remove("no-click");
+
             gridContainer.innerHTML = " ";
+            pointCounter.innerHTML = " ";
+            gameOver.innerHTML = " ";
+            numbersList = [];
+            winningList = [];
 
-            const bombCreator = bombs(1, 81);
+            bombs(1, 81);
 
-            const cell = cellCreator(1, 81, levelMedium);
+            cellCreator(1, 81, levelMedium, 65);
         }
         else if (levelSelection.value == "hard") { //Inizio livello difficile
+            gridContainer.classList.remove("no-click");
+            
             gridContainer.innerHTML = " ";
+            pointCounter.innerHTML = " ";
+            gameOver.innerHTML = " ";
+            numbersList = [];
+            winningList = [];
 
-            const bombCreator = bombs(1, 49);
+            bombs(1, 49);
 
-            const cell = cellCreator(1, 49, levelHard);
+            cellCreator(1, 49, levelHard, 33);
         }
     }
 );
 
 // Funzioni -----------------------------------------------------
 
-function cellCreator (min, max, levelClass) {
+function cellCreator (min, max, levelClass, goalNumber) {
     for (let i = min; i <= max; i++) {
         const myCell = document.createElement("div");
         myCell.classList.add("cell", levelClass);
@@ -64,22 +90,40 @@ function cellCreator (min, max, levelClass) {
     
         gridContainer.append(myCell);
     
-        cellColor(myCell, i);
+        cellSetUp(myCell, i, goalNumber);
     }
 }
 
-function cellColor (cellVarName, counter) {
+function cellSetUp (cellVarName, counter, goalNumber) {
     cellVarName.addEventListener("click",
         function () {
             if (numbersList.includes(counter)) {
                 cellVarName.classList.add("bomb");
-
                 console.log("Il numero della cella con la bomba è: " + counter);
+
+                gameOver.innerHTML = "Game Over!"
+                points = 0;
+
+                gridContainer.classList.add("no-click");
+            }
+            else if (winningList.length == goalNumber) {
+                alert("Congratulazioni, hai vinto!");
+
+                gridContainer.classList.add("no-click");
             }
             else {
                 cellVarName.classList.add("click-azure");
-
                 console.log("Il numero della cella è: " + counter);
+
+                cellVarName.classList.add("no-click");
+
+                winningList.push(1);
+                console.log("winningList", winningList);
+
+                points++;
+                console.log("points dopo", points, typeof points);
+
+                pointCounter.innerHTML = "Il tuo punteggio è: " + points;
             }
         }
     );
@@ -95,4 +139,5 @@ function bombs (min, max) {
     
         numbersList.push(bombNumber);
     }
+    console.log("numbersList", numbersList);
 }

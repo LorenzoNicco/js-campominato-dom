@@ -21,11 +21,17 @@ main {
     height: 80vh;
     background-color: lightblue;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
 }
 
 /* HEADER **********************************/
+.title {
+    display: flex;
+    align-items: center;
+}
+
 #level-selector {
     width: 10rem;
     cursor: pointer;
@@ -51,6 +57,10 @@ main {
     height: 70vh;
     width: 70vh;
     background-color: coral;
+}
+
+main > div:last-child {
+    font-size: 1.5rem;
 }
 
 .cell {
@@ -83,4 +93,8 @@ main {
 
 .bomb {
     background-color: crimson;
+}
+
+.no-click {
+    pointer-events: none;
 }
