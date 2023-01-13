@@ -26,14 +26,14 @@ const levelHard = "cell-hard";
 let numbersList = [];
 console.log("numbersList", numbersList);
 
-let winningList = [];
-
 let points = 0;
 console.log("points prima", points, typeof points);
 
 let pointCounter = document.getElementById("points");
 
 let gameOver = document.getElementById("game-over");
+
+let goalNumber = 0;
 
 // Evento play
 playBtn.addEventListener("click", 
@@ -45,11 +45,11 @@ playBtn.addEventListener("click",
             pointCounter.innerHTML = " ";
             gameOver.innerHTML = " ";
             numbersList = [];
-            winningList = [];
+            goalNumber = 84
 
             bombs(1, 100);
 
-            cellCreator(1, 100, levelEasy, 81);
+            cellCreator(1, 100, levelEasy);
         }
         else if (levelSelection.value == "medium") { //Inizio livello medio
             gridContainer.classList.remove("no-click");
@@ -58,11 +58,11 @@ playBtn.addEventListener("click",
             pointCounter.innerHTML = " ";
             gameOver.innerHTML = " ";
             numbersList = [];
-            winningList = [];
+            goalNumber = 65;
 
             bombs(1, 81);
 
-            cellCreator(1, 81, levelMedium, 65);
+            cellCreator(1, 81, levelMedium);
         }
         else if (levelSelection.value == "hard") { //Inizio livello difficile
             gridContainer.classList.remove("no-click");
@@ -71,30 +71,30 @@ playBtn.addEventListener("click",
             pointCounter.innerHTML = " ";
             gameOver.innerHTML = " ";
             numbersList = [];
-            winningList = [];
+            goalNumber = 33;
 
             bombs(1, 49);
 
-            cellCreator(1, 49, levelHard, 33);
+            cellCreator(1, 49, levelHard);
         }
     }
 );
 
 // Funzioni -----------------------------------------------------
 
-function cellCreator (min, max, levelClass, goalNumber) {
+function cellCreator (min, max, levelClass) {
     for (let i = min; i <= max; i++) {
         const myCell = document.createElement("div");
         myCell.classList.add("cell", levelClass);
         myCell.innerHTML = i;
-    
+
         gridContainer.append(myCell);
     
-        cellSetUp(myCell, i, goalNumber);
+        cellSetUp(myCell, i);
     }
 }
 
-function cellSetUp (cellVarName, counter, goalNumber) {
+function cellSetUp (cellVarName, counter) {
     cellVarName.addEventListener("click",
         function () {
             if (numbersList.includes(counter)) {
@@ -106,24 +106,23 @@ function cellSetUp (cellVarName, counter, goalNumber) {
 
                 gridContainer.classList.add("no-click");
             }
-            else if (winningList.length == goalNumber) {
-                alert("Congratulazioni, hai vinto!");
-
-                gridContainer.classList.add("no-click");
-            }
             else {
                 cellVarName.classList.add("click-azure");
                 console.log("Il numero della cella è: " + counter);
 
                 cellVarName.classList.add("no-click");
 
-                winningList.push(1);
-                console.log("winningList", winningList);
-
                 points++;
                 console.log("points dopo", points, typeof points);
 
                 pointCounter.innerHTML = "Il tuo punteggio è: " + points;
+
+                if (points == goalNumber) {
+                    alert("Congratulazioni, hai vinto! Il tuo punteggio è: " + points);
+                    console.log("Hai vinto!");
+    
+                    gridContainer.classList.add("no-click");
+                }
             }
         }
     );
